@@ -404,9 +404,12 @@ public class Exercises {
      * 
      * @throws IOException
      */
-    @Test @Ignore
+    @Test 
     public void ex14_listOfAllWords() throws IOException {
-        List<String> output = null; // TODO
+    
+        List<String> output = reader.lines()
+        							.flatMap(s -> Stream.of(s.split(REGEXP)))
+        							.collect(Collectors.toList());
         
         assertEquals(
             Arrays.asList(
