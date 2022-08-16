@@ -31,6 +31,7 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -138,9 +139,7 @@ public class Exercises {
         						.map(m -> {
         							String key = m.getKey();
         							Integer value = m.getValue();
-        							
         							return key + value.toString();
-        							
         						})
         						.collect(Collectors.joining()); // TODO
         
@@ -155,15 +154,19 @@ public class Exercises {
      * Given a list of words, create a map whose keys are the first letters of
      * each words, and whose values are the sum of the lengths of those words.
      */
-    @Test @Ignore
+    @Test 
     public void ex05_mapOfStringLengths() {
         List<String> list = Arrays.asList(
             "aardvark", "bison", "capybara",
             "alligator", "bushbaby", "chimpanzee",
             "avocet", "bustard", "capuchin");
         Map<String, Integer> result = new TreeMap<>();
-
-        //TODO code to populate result
+        		
+        
+        result = list.stream()
+   			 .collect(Collectors.groupingBy(s-> s.substring(0, 1),TreeMap::new,Collectors.summingInt(String::length)));
+        
+        result.forEach((key, value) -> System.out.println(key + "->" + value));
         
         assertEquals("{a=23, b=20, c=26}", result.toString());
     }
