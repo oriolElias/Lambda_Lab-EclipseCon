@@ -344,12 +344,18 @@ public class Exercises {
      * difference between the corresponding elements of the two input lists
      * (first minus second).
      */
-    @Test @Ignore
+    @Test 
     public void ex12_listDifference() {
         List<Integer> one = Arrays.asList(3, 1, 4, 1, 5, 9, 2, 6, 5, 3);
         List<Integer> two = Arrays.asList(2, 7, 1, 8, 2, 8, 1, 8, 2, 8);
         
-        List<Integer> result = null; // TODO
+        
+        List<Integer> result = IntStream.range(0, one.size())
+        								.mapToObj(pos -> {
+        									return one.get(pos)-two.get(pos);
+        								})
+        								.collect(Collectors.toList())
+        		;
         
         assertEquals("[1, -6, 3, -7, 3, 1, 1, -2, 3, -5]", result.toString());
     }
