@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IntSummaryStatistics;
@@ -475,9 +476,19 @@ public class Exercises {
      * 
      * @throws IOException 
      */
-    @Test @Ignore
+    @Test 
     public void ex16_longLowerCaseReverseSortedWords() throws IOException {
-        List<String> result = null; // TODO
+    	List<String> result = reader.lines()
+      		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
+      		  .map(s -> {
+      			  if(s.length()>=8) {
+      				  return s.toLowerCase();
+      			  }
+      			  return null;
+      		  })
+      		  .filter(s -> s!=null)
+      		  .sorted(Comparator.reverseOrder())
+      		  .collect(Collectors.toList());
         
         assertEquals(
             Arrays.asList(
