@@ -546,11 +546,28 @@ public class Exercises {
     /**
      * Count the total number of words and the number of distinct, lower case
      * words in the text file, in one pass.
+     * @throws IOException 
      */
-    @Test @Ignore
-    public void ex18_countTotalAndDistinctWords() {
-        long distinctCount = 0; // TODO
-        long totalCount = 0; // TODO
+    @Test 
+    public void ex18_countTotalAndDistinctWords() throws IOException {
+    	
+        long distinctCount = reader.lines()
+      		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
+      		  .map(s -> s.toLowerCase())
+      		  //.peek(System.out::println)
+      		  .distinct()
+      		  .mapToLong(s -> 1L)
+      		  .sum()
+    		  ; 
+        
+        //System.out.println("--------------------------");
+        z_setUpBufferedReader();
+        long totalCount = reader.lines()
+      		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
+      		  .map(s -> s.toLowerCase())
+      		  //.peek(System.out::println)
+      		  .mapToLong(s -> 1L)
+    		  .sum(); 
         
         assertEquals("distinct count", 81, distinctCount);
         assertEquals("total count", 107, totalCount);
