@@ -507,9 +507,16 @@ public class Exercises {
      * 
      * @throws IOException 
      */
-    @Test @Ignore
+    @Test 
     public void ex17_sortedLowerCaseDistinctByLengthThenAlphabetically() throws IOException {
-        List<String> result = null; // TODO
+    	Comparator<String> comparator = (String t1, String t2) -> { return t1.length()-t2.length(); };
+    	List<String> result = reader.lines()
+        		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		  .map(s -> s.toLowerCase())
+        		  .distinct()
+        		  .sorted()
+        		  .sorted(comparator)
+        		  .collect(Collectors.toList());
         
         assertEquals(
             Arrays.asList(
