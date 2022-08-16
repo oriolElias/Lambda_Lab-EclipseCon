@@ -166,7 +166,7 @@ public class Exercises {
         result = list.stream()
    			 .collect(Collectors.groupingBy(s-> s.substring(0, 1),TreeMap::new,Collectors.summingInt(String::length)));
         
-        result.forEach((key, value) -> System.out.println(key + "->" + value));
+        //result.forEach((key, value) -> System.out.println(key + "->" + value));
         
         assertEquals("{a=23, b=20, c=26}", result.toString());
     }
@@ -288,9 +288,18 @@ public class Exercises {
      * 
      * @throws IOException 
      */
-    @Test @Ignore
+    @Test 
     public void ex10_findLongestLine() throws IOException {
-        String longest = ""; // TODO
+        String longest = reader.lines()
+        					   .reduce(new String(),(r,s) -> {
+        						   if(r.length()>s.length()) {
+        							   return r;   
+        						   }else {
+        							   return s;
+        						   }
+        						  
+        					   })
+        					   ; 
         
         assertEquals("Feed'st thy light's flame with self-substantial fuel,", longest);
     }
@@ -306,12 +315,22 @@ public class Exercises {
      * Select the set of words from the input list whose length is greater than
      * to the word's position (starting from zero) in the list.
      */
-    @Test @Ignore
+    @Test 
     public void ex11_selectByLengthAndPosition() {
         List<String> input = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel"));
         
-        List<String> result = null; // TODO
+        IntStream positions = IntStream.range(0, input.size()); 
+        
+        List<String> result = positions.map(i -> {
+        	if(input.get(i).length()>i) {
+        		return i;
+        	}
+        	return -1;
+        })
+        .filter(i -> i!=-1)
+        .mapToObj(i -> input.get(i))
+        .collect(Collectors.toList()); 
         
         assertEquals("[alfa, bravo, charlie, delta, foxtrot]", result.toString());
     }
