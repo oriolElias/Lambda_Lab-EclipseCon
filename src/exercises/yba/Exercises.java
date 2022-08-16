@@ -79,14 +79,23 @@ public class Exercises {
     /**
      * Remove the words that have odd lengths from the list.
      */
-    @Test @Ignore
+    @Test 
     public void ex02_removeOddLengthWords() {
         List<String> list = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot"));
         
-        // TODO code to modify list
+        List<String> listResult = list.stream()
+        		   .map(s -> {
+        			   if(s.length()%2 ==0 ) {
+        				   return s;   
+        			   }
+        			   return null;
+        			   
+        		   })
+        		   .filter(s -> s!=null)
+        		   .collect(Collectors.toList());
         
-        assertEquals("[alfa, echo]", list.toString());
+        assertEquals("[alfa, echo]", listResult.toString());
     }
     /* Hint
      * Use Collection.removeIf().
@@ -95,14 +104,19 @@ public class Exercises {
     /**
      * Replace every word in the list with its upper case equivalent.
      */
-    @Test @Ignore
+    @Test 
     public void ex03_upcaseAllWords() {
         List<String> list = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot"));
         
         //TODO code to modify list
         
-        assertEquals("[ALFA, BRAVO, CHARLIE, DELTA, ECHO, FOXTROT]", list.toString());
+        List<String> result = list.stream()
+        		.map(s -> s.toUpperCase())
+        		.collect(Collectors.toList())
+        		;
+        
+        assertEquals("[ALFA, BRAVO, CHARLIE, DELTA, ECHO, FOXTROT]", result.toString());
     }
     /* Hint:
      * Use List.replaceAll().
@@ -113,14 +127,22 @@ public class Exercises {
      * Convert every key-value pair of a map into a string and append them all
      * into a single string, in iteration order.
      */
-    @Test @Ignore
+    @Test 
     public void ex04_stringifyMap() {
         Map<String, Integer> input = new TreeMap<>();
         input.put("c", 3);
         input.put("b", 2);
         input.put("a", 1);
         
-        String result = ""; // TODO
+        String result = input.entrySet().stream()
+        						.map(m -> {
+        							String key = m.getKey();
+        							Integer value = m.getValue();
+        							
+        							return key + value.toString();
+        							
+        						})
+        						.collect(Collectors.joining()); // TODO
         
         assertEquals("a1b2c3", result);
     }
