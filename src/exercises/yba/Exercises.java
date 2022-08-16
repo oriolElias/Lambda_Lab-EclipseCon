@@ -36,6 +36,7 @@ import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import org.junit.After;
@@ -589,9 +590,15 @@ public class Exercises {
      * Compute the value of 21!, that is, 21 factorial. This value is larger than
      * Long.MAX_VALUE, so you must use BigInteger.
      */
-    @Test @Ignore
+    @Test 
     public void ex19_bigFactorial() {
-        BigInteger result = BigInteger.ONE; // TODO
+        
+    	BigInteger result = LongStream.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21)
+    								  .mapToObj(ls -> BigInteger.valueOf(ls))
+        							  .reduce(new BigInteger("1"),(r,ls)->{
+        								  r=r.multiply(ls);
+        								  return r;
+        							  });
                         
         assertEquals(new BigInteger("51090942171709440000"), result);
     }
