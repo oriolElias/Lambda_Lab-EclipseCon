@@ -440,9 +440,22 @@ public class Exercises {
      * 
      * @throws IOException 
      */
-    @Test @Ignore
+    @Test 
     public void ex15_longLowerCaseSortedWords() throws IOException {
-        List<String> output = null; // TODO
+    	
+    	List<String> output = reader.lines()
+    		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
+    		  .map(s -> {
+    			  if(s.length()>=8) {
+    				  return s;
+    			  }
+    			  return null;
+    		  })
+    		  .filter(s -> s!=null)
+    		  .sorted()
+    		  .collect(Collectors.toList());
+    	
+        
         
         assertEquals(
             Arrays.asList(
