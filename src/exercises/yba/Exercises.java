@@ -243,9 +243,10 @@ public class Exercises {
      * 
      * @throws IOException
      */ 
-    @Test @Ignore
+    @Test 
     public void ex08_countLinesInFile() throws IOException {
-        long count = 0; // TODO
+    	
+        long count = reader.lines().count(); // TODO
         
         assertEquals(14, count);
     }
