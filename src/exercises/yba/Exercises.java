@@ -447,7 +447,7 @@ public class Exercises {
     		  .flatMap(lines -> Stream.of(lines.split(REGEXP)))
     		  .map(s -> {
     			  if(s.length()>=8) {
-    				  return s;
+    				  return s.toLowerCase();
     			  }
     			  return null;
     		  })
