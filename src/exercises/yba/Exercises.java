@@ -214,12 +214,17 @@ public class Exercises {
      * Join the second letters of words 1 through 4 of the list (inclusive,
      * counting from zero), separated by commas, into a single string.
      */
-    @Test @Ignore
+    @Test 
     public void ex07_joinStreamRange() {
         List<String> input = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot"));
 
-        String result = ""; // TODO
+        String result = input.stream()
+        					 .skip(1)
+        					 .limit(4)
+        					 .map(s -> s.substring(1,2))
+        					 .collect(Collectors.joining(","))
+        					 ;
         
         assertEquals("r,h,e,c", result);
     }
