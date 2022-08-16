@@ -184,12 +184,21 @@ public class Exercises {
      * Given a list of words, create an output list that contains
      * only the odd-length words, converted to upper case.
      */
-    @Test @Ignore
+    @Test 
     public void ex06_upcaseOddLengthWords() {
         List<String> input = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot"));
         
-        List<String> result = null; // TODO
+        List<String> result = input.stream()
+        						   .map(s -> {
+        							   if(s.length()%2 !=0) {
+        								   return s.toUpperCase();
+        							   }
+        							   return null;
+        						   })
+        						   .filter(s -> s!=null)
+        						   .collect(Collectors.toList());
+        						   ; 
         
         assertEquals("[BRAVO, CHARLIE, DELTA, FOXTROT]", result.toString());
     }
