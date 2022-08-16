@@ -63,9 +63,14 @@ public class Exercises {
         List<String> input = Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot");
         
-        String result = input.stream()
+        /*String result = input.stream()
         					 .map(s -> s.substring(0,1))
         					 .collect(Collectors.joining());
+        */
+        
+        String result = input.stream()
+				 .map(s -> s.substring(0,1))
+				 .reduce(new String(), (r,s)-> r.concat(s.substring(0,1)));
         
         assertEquals("abcdef", result);
     }
