@@ -375,11 +375,16 @@ public class Exercises {
     /**
      * Convert a list of strings into a list of characters.
      */
-    @Test @Ignore
+    @Test 
     public void ex13_stringsToCharacters() {
         List<String> input = Arrays.asList("alfa", "bravo", "charlie");
         
-        List<Character> result = null; // TODO
+       
+        
+        
+        List<Character> result = input.stream()
+        							  .flatMap(s -> s.chars().mapToObj(n -> (char)n))
+        							  .collect(Collectors.toList()); 
         
         assertEquals("[a, l, f, a, b, r, a, v, o, c, h, a, r, l, i, e]", result.toString());
         assertTrue(result.stream().allMatch(x -> x instanceof Character));
