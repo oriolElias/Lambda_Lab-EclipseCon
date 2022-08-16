@@ -263,9 +263,15 @@ public class Exercises {
      * 
      * @throws IOException 
      */
-    @Test @Ignore
+    @Test 
     public void ex09_findLengthOfLongestLine() throws IOException {
-        int longestLength = 0; // TODO
+        
+    	int longestLength = reader.lines()
+          	  .mapToInt(s -> s.length())
+          	  .reduce(new Integer(0), (r,i) -> {
+          		  r = Math.max(i,r);
+          		  return r;
+          	  } ); 
         
         assertEquals(53, longestLength);
     }
