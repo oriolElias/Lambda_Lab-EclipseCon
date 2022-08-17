@@ -655,10 +655,16 @@ public class Exercises {
      * 
      * @throws IOException
      */
-    @Test @Ignore
+    @Test 
     public void ex21_mapLengthToWordList() throws IOException {
-        Map<Integer, List<String>> result = null; // TODO
-        
+        Map<Integer, List<String>> result = reader.lines()
+        		.flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		.collect(Collectors.groupingBy(s -> s.length(),
+        				TreeMap::new,
+        				Collectors.toList()
+        				))
+        		; 
+        //collect(Collectors.groupingBy(s-> s.substring(0, 1),TreeMap::new,Collectors.summingInt(String::length)))
         assertEquals(10, result.get(7).size());
         assertEquals(new HashSet<>(Arrays.asList("beauty's", "increase", "ornament")), new HashSet<>(result.get(8)));
         assertEquals(new HashSet<>(Arrays.asList("abundance", "creatures")), new HashSet<>(result.get(9)));
