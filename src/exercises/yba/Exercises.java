@@ -728,10 +728,22 @@ public class Exercises {
      * 
      * @throws IOException
      */
-    @Test @Ignore
+    @Test 
     public void ex23_wordFrequencies() throws IOException {
-        Map<String, Long> result = null; // TODO
-        
+        /*Map<String, Long> result = reader.lines()
+        		.flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		.collect(Collectors.groupingBy(s -> s,
+        				TreeMap::new,
+        				Collectors.counting()
+        				));*/
+    	Map<String, Long> result = reader.lines()
+        		.flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		.collect(Collectors.toMap(s -> s, 
+        								  n -> 1L,
+        								  Long::sum
+        									));
+    	
+
         assertEquals(2L, (long)result.get("tender"));
         assertEquals(6L, (long)result.get("the"));
         assertEquals(1L, (long)result.get("churl"));
@@ -757,14 +769,23 @@ public class Exercises {
      * is a parallel stream, so you MUST write a proper combiner function to get the
      * correct result.
      */
-    @Test @Ignore
+    @Test 
     public void ex24_insertBeginningAndEnd() {
         Stream<String> input = Arrays.asList(
             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
             "k", "l", "m", "n", "o", "p", "q", "r", "s", "t")
             .parallelStream();
         
-        String result = input.collect(null, null, null); // TODO
+        String result = input.collect(StringBuilder::new,
+        							  (s1,s2) -> {
+        								
+        								  //s1.insert(0,s2).append(s2);
+        								 
+        							  },
+        							  (s1,s2) -> {
+        								  //s1.insert(0,s2.substring(0, s2.length()/2));
+        								  //s1.append(s2.substring(s2.length()/2));
+        							  }).toString(); 
         
         assertEquals("tsrqponmlkjihgfedcbaabcdefghijklmnopqrst", result);
     }
