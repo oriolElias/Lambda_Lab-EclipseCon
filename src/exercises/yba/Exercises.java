@@ -29,6 +29,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IntSummaryStatistics;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -87,7 +88,7 @@ public class Exercises {
         List<String> list = new ArrayList<>(Arrays.asList(
             "alfa", "bravo", "charlie", "delta", "echo", "foxtrot"));
         
-        List<String> listResult = list.stream()
+        /*List<String> listResult = list.stream()
         		   .map(s -> {
         			   if(s.length()%2 ==0 ) {
         				   return s;   
@@ -96,7 +97,22 @@ public class Exercises {
         			   
         		   })
         		   .filter(s -> s!=null)
-        		   .collect(Collectors.toList());
+        		   .collect(Collectors.toList());*/
+        
+        /*List<String> listResult = list.stream()
+        		.filter(s -> s.length()%2==0)
+     		    .collect(Collectors.toList());*/
+        List listResult = list.stream()
+        							  .reduce(new LinkedList<String>()
+        							  , (myList,word) -> {
+        								  if(word.length()%2==0) {
+        									  myList.add(word);
+        								  }
+        								  return myList;
+        							  },
+        							   (l1,l2) -> l1 
+        							   );
+        
         
         assertEquals("[alfa, echo]", listResult.toString());
     }
@@ -612,9 +628,17 @@ public class Exercises {
      * 
      * @throws IOException
      */
-    @Test @Ignore
+    @Test 
     public void ex20_getLastWord() throws IOException {
-        String result = null; // TODO
+        String result =	reader.lines()
+        		.flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		.reduce(new String(), 
+        				(finalWord,newWord) -> {
+        					finalWord=newWord;
+        					return finalWord;
+        				},
+        				(s1,s2)->s1
+        				);
         
         assertEquals("thee", result);
     }
