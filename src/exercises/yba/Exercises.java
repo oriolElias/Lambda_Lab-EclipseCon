@@ -686,9 +686,15 @@ public class Exercises {
      * 
      * @throws IOException
      */
-    @Test @Ignore
+    @Test 
     public void ex22_mapLengthToWordCount() throws IOException {
-        Map<Integer, Long> result = null; // TODO
+        Map<Integer, Long> result = reader.lines()
+        		.flatMap(lines -> Stream.of(lines.split(REGEXP)))
+        		.collect(Collectors.groupingBy(s -> s.length(),
+        				TreeMap::new,
+        				Collectors.counting()
+        				))
+        		;
 
         assertEquals( 1L, (long)result.get(1));
         assertEquals(11L, (long)result.get(2));
