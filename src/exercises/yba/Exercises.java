@@ -693,8 +693,7 @@ public class Exercises {
         		.collect(Collectors.groupingBy(s -> s.length(),
         				TreeMap::new,
         				Collectors.counting()
-        				))
-        		;
+        				));
 
         assertEquals( 1L, (long)result.get(1));
         assertEquals(11L, (long)result.get(2));
