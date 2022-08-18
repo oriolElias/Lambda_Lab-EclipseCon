@@ -778,13 +778,17 @@ public class Exercises {
         
         String result = input.collect(StringBuilder::new,
         							  (s1,s2) -> {
-        								
-        								  //s1.insert(0,s2).append(s2);
+        								s1.insert(0,s2).append(s2);
+        								//System.out.println(s1);
         								 
         							  },
         							  (s1,s2) -> {
-        								  //s1.insert(0,s2.substring(0, s2.length()/2));
-        								  //s1.append(s2.substring(s2.length()/2));
+        								  int halfLength = s2.length()/2;
+        								  String s2LeftHalf = s2.substring(0,halfLength);
+        								  String s2RightHalf = s2.substring(halfLength,s2.length());
+        								  
+        								  s1.insert(0,s2LeftHalf).append(s2RightHalf);
+        								  //System.out.println(s1);
         							  }).toString(); 
         
         assertEquals("tsrqponmlkjihgfedcbaabcdefghijklmnopqrst", result);
