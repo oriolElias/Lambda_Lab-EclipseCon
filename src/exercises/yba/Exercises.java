@@ -779,8 +779,6 @@ public class Exercises {
         String result = input.collect(StringBuilder::new,
         							  (s1,s2) -> {
         								s1.insert(0,s2).append(s2);
-        								//System.out.println(s1);
-        								 
         							  },
         							  (s1,s2) -> {
         								  int halfLength = s2.length()/2;
@@ -788,7 +786,6 @@ public class Exercises {
         								  String s2RightHalf = s2.substring(halfLength,s2.length());
         								  
         								  s1.insert(0,s2LeftHalf).append(s2RightHalf);
-        								  //System.out.println(s1);
         							  }).toString(); 
         
         assertEquals("tsrqponmlkjihgfedcbaabcdefghijklmnopqrst", result);
